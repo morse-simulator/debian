@@ -1,0 +1,219 @@
+diff --git a/bin/morse.in b/bin/morse.in
+index aa0e006..eb04ca7 100755
+--- a/bin/morse.in
++++ b/bin/morse.in
+@@ -34,7 +34,7 @@ STRICT_MAX_PYTHON_VERSION = "4.0"
+ #Blender version must be egal or bigger than...
+ MIN_BLENDER_VERSION = "2.59"
+ #Blender version must be smaller than...
+-STRICT_MAX_BLENDER_VERSION = "2.62"
++STRICT_MAX_BLENDER_VERSION = "2.63"
+ 
+ #Unix-style path to the MORSE default scene, within the prefix
+ DEFAULT_SCENE_PATH = "share/morse/data/morse_default.blend"
+diff --git a/src/morse/builder/abstractcomponent.py b/src/morse/builder/abstractcomponent.py
+index 32069f6..e1cc4cd 100644
+--- a/src/morse/builder/abstractcomponent.py
++++ b/src/morse/builder/abstractcomponent.py
+@@ -147,7 +147,11 @@ class AbstractComponent(object):
+                 optional, auto-detect, default=None)
+         """
+         bpy.ops.object.select_all(action = 'DESELECT')
+-        bpy.ops.object.select_name(name = self.name)
++        #bpy.ops.object.select_pattern(pattern = self.name, extend=False)
++        #bpy.ops.object.select_name(name = self.name)
++        blend_obj = bpy.data.objects[self.name]
++        blend_obj.select = True
++        bpy.context.scene.objects.active = blend_obj
+         bpy.ops.object.game_property_new()
+         prop = self._blendobj.game.properties
+         # select the last property in the list (which is the one we just added)
+diff --git a/src/morse/builder/morsebuilder.py b/src/morse/builder/morsebuilder.py
+index 613b967..3e1b430 100644
+--- a/src/morse/builder/morsebuilder.py
++++ b/src/morse/builder/morsebuilder.py
+@@ -379,7 +379,9 @@ class Environment(AbstractComponent):
+         camera_fp.rotation_euler = self._camera_rotation
+         # Make CameraFP the active camera
+         bpy.ops.object.select_all(action = 'DESELECT')
+-        bpy.ops.object.select_name(name = 'CameraFP')
++        camera_fp.select = True
++        bpy.context.scene.objects.active = camera_fp
++        bpy.context.scene.camera = camera_fp
+         self._created = True
+ 
+     def show_debug_properties(self, value=True):
+diff --git a/src/morse/helpers/math.py b/src/morse/helpers/math.py
+index 5aacf9f..aa2441c 100644
+--- a/src/morse/helpers/math.py
++++ b/src/morse/helpers/math.py
+@@ -32,13 +32,6 @@ def invert_rotation_matrix(object):
+     this one. """
+     rotation_matrix = get_rotation_matrix(object)
+ 
+-    # TEMPORARY solution for Blender 2.56
+-    # Should be deprecated soon
+-    import bpy
+-    if bpy.app.version[1] <= 56:
+-        inverted_matrix = mathutils.Matrix(rotation_matrix[0], rotation_matrix[1], rotation_matrix[2])
+-        return inverted_matrix.invert()
+-
+     # Return a new inverted matrix (requires Blender 2.58)
+     return rotation_matrix.inverted()
+ 
+diff --git a/src/morse/helpers/transformation.py b/src/morse/helpers/transformation.py
+index 5608bb9..d5f09ca 100644
+--- a/src/morse/helpers/transformation.py
++++ b/src/morse/helpers/transformation.py
+@@ -24,17 +24,10 @@ class Transformation3d:
+         reference
+ 
+         """
+-        if GameLogic.blenderVersion <= (2,56,0):
+-        #if GameLogic.pythonVersion <= (3,1,0):
+-            self.matrix = mathutils.Matrix([1, 0, 0, 0], \
+-                                           [0, 1, 0, 0], \
+-                                           [0, 0, 1, 0], \
+-                                           [0, 0, 0, 1])
+-        else:
+-            self.matrix = mathutils.Matrix(([1, 0, 0, 0], \
+-                                            [0, 1, 0, 0], \
+-                                            [0, 0, 1, 0], \
+-                                            [0, 0, 0, 1]))
++        self.matrix = mathutils.Matrix(([1, 0, 0, 0], \
++                                        [0, 1, 0, 0], \
++                                        [0, 0, 1, 0], \
++                                        [0, 0, 0, 1]))
+ 
+         self.euler = mathutils.Euler([0, 0, 0])
+         if obj != None:
+@@ -45,21 +38,30 @@ class Transformation3d:
+         """
+         Return the translation  against the x axle
+         """
+-        return self.matrix[3][0]
++        if GameLogic.blenderVersion <= (2,62,0):
++            return self.matrix[3][0]
++        else:
++            return self.matrix[0][3]
+ 
+     @property
+     def y(self):
+         """
+         Return the translation  against the y axle
+         """
+-        return self.matrix[3][1]
++        if GameLogic.blenderVersion <= (2,62,0):
++            return self.matrix[3][1]
++        else:
++            return self.matrix[1][3]
+ 
+     @property
+     def z(self):
+         """
+         Return the translation  against the z axle
+         """
+-        return self.matrix[3][2]
++        if GameLogic.blenderVersion <= (2,62,0):
++            return self.matrix[3][2]
++        else:
++            return self.matrix[2][3]
+ 
+     @property
+     def yaw(self):
+diff --git a/src/morse/sensors/camera.py b/src/morse/sensors/camera.py
+index 05054ad..6802bb7 100644
+--- a/src/morse/sensors/camera.py
++++ b/src/morse/sensors/camera.py
+@@ -104,25 +104,29 @@ class CameraClass(morse.core.sensor.MorseSensorClass):
+             GameLogic.cameras = {}
+ 
+         mat_id = VideoTexture.materialID(screen, material_name)
+-        GameLogic.cameras[self.name()] = VideoTexture.Texture(screen, mat_id)
+-        GameLogic.cameras[self.name()].source = \
+-                                    VideoTexture.ImageRender(scene, camera)
++        vt_camera = VideoTexture.Texture(screen, mat_id)
++        vt_camera.source = VideoTexture.ImageRender(scene, camera)
+ 
+         # Set the focal length of the camera using the Game Logic Property
+         camera.lens = self.image_focal
++        logger.info("\tFocal length of the camera is: %s" % camera.lens)
+ 
+         # Set the background to be used for the render
+-        GameLogic.cameras[self.name()].source.background = self.bg_color
++        vt_camera.source.background = self.bg_color
+         # Define an image size. It must be powers of two. Default 512 * 512
+-        GameLogic.cameras[self.name()].source.capsize = \
+-                [self.image_width, self.image_height]
+-        logger.info("Camera '{0}': Exporting an image of capsize: {1} pixels". \
+-                format(self.name(), GameLogic.cameras[self.name()].source.capsize))
+-        logger.info("\tFocal length of the camera is: %s" % camera.lens)
++        vt_camera.source.capsize = [self.image_width, self.image_height]
++        logger.info("Camera '%s': Exporting an image of capsize: %s pixels" % \
++                (self.name(), vt_camera.source.capsize))
+ 
+         # Reverse the image (boolean game-property)
+         # cf. GameLogic.video.source.flip (VideoTexture.ImageRender)
+         # http://wiki.blender.org/index.php/Dev:Source/GameEngine/2.49/VideoTexture#Setup_the_source
+         if 'Vertical_Flip' in self.blender_obj: # backward compatibility
+-            GameLogic.cameras[self.name()].source.flip = self.blender_obj['Vertical_Flip']
+-
++            vt_camera.source.flip = self.blender_obj['Vertical_Flip']
++
++        GameLogic.cameras[self.name()] = vt_camera
++#
++#        import inspect
++#        logger.error("CAMERA SOURCE '%s':" % self.name())
++#        for name, thing in inspect.getmembers(GameLogic.cameras[self.name()].source):
++#            logger.error("\t%s = %s" % (name, thing))
+diff --git a/src/morse/sensors/sick.py b/src/morse/sensors/sick.py
+index 7f3d3f8..56b6e73 100644
+--- a/src/morse/sensors/sick.py
++++ b/src/morse/sensors/sick.py
+@@ -134,10 +134,7 @@ class SICKClass(morse.core.sensor.MorseSensorClass):
+ 
+                         # Multiply the resulting point by the inverse
+                         #  of the sensor rotation matrix
+-                        if GameLogic.blenderVersion < (2,59,0):
+-                            arc_point = vector_point * inverted_matrix
+-                        else:
+-                            arc_point = inverted_matrix * vector_point
++                        arc_point = inverted_matrix * vector_point
+                         logger.debug("\t\tARC POINT: [%.4f, %.4f, %.4f]" % (arc_point[0], arc_point[1], arc_point[2]))
+ 
+                         # Do not move the point if the ray intersection
+diff --git a/src/morse/sensors/velodyne.py b/src/morse/sensors/velodyne.py
+index 11526ed..b6771d7 100644
+--- a/src/morse/sensors/velodyne.py
++++ b/src/morse/sensors/velodyne.py
+@@ -137,10 +137,7 @@ class VelodyneClass(morse.core.sensor.MorseSensorClass):
+ 
+                         # Multiply the resulting point by the inverse
+                         #  of the sensor rotation matrix
+-                        if GameLogic.blenderVersion < (2,59,0):
+-                            arc_point = vector_point * robot_inverted_matrix
+-                        else:
+-                            arc_point = robot_inverted_matrix * vector_point
++                        arc_point = robot_inverted_matrix * vector_point
+                         logger.debug("\t\tARC POINT: [%.4f, %.4f, %.4f]" % (arc_point[0], arc_point[1], arc_point[2]))
+ 
+                         # Do not move the point if the ray intersection
+diff --git a/src/morse/sensors/video_camera.py b/src/morse/sensors/video_camera.py
+index 9e88ddf..4ada1b8 100644
+--- a/src/morse/sensors/video_camera.py
++++ b/src/morse/sensors/video_camera.py
+@@ -34,8 +34,12 @@ class VideoCameraClass(morse.sensors.camera.CameraClass):
+                   self.image_focal / BLENDER_HORIZONTAL_APERTURE
+         intrinsic[0][0] = alpha_u
+         intrinsic[1][1] = alpha_u
+-        intrinsic[2][0] =  self.image_width / 2.0
+-        intrinsic[2][1] =  self.image_height / 2.0
++        if GameLogic.blenderVersion <= (2,62,0):
++            intrinsic[2][0] =  self.image_width / 2.0
++            intrinsic[2][1] =  self.image_height / 2.0
++        else:
++            intrinsic[0][2] =  self.image_width / 2.0
++            intrinsic[1][2] =  self.image_height / 2.0
+         self.local_data['intrinsic_matrix'] = intrinsic
+ 
+         self.capturing = False

@@ -1,0 +1,5 @@
+morse-simulator (0.5.1-1) unstable; urgency=low
+
+  * Initial release (Closes: #670577)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Thu, 26 Apr 2012 21:37:50 +0200
