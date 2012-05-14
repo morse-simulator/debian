@@ -255,7 +255,7 @@ License: BSD 3 clauses
 Files: ./examples/scenarii/armature_samples/armature_services_tests.py
  ./examples/scenarii/armature_samples/pr2_services_tests.py
 Copyright: 2010, Name, peter.roelants@gmail.com, Department of Mechanical
-License: BSD (3 clause)
+License: BSD 3 clauses
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
   * Redistributions of source code must retain the above copyright notice,
@@ -269,6 +269,14 @@ License: BSD (3 clause)
 
 Files: ./src/morse/core/ansistrm.py
 Copyright: 2010-2011, Vinay Sajip.
-License: BSD license.
- FIXME
-
+License: BSD 3 clauses
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+  * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+  * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+  * Neither the name of the Vinay Sajip nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
