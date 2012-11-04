@@ -1,3 +1,16 @@
+morse-simulator (0.6-1~exp1) experimental; urgency=low
+
+  * New upstream release
+  * Update of the watch file
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sun, 04 Nov 2012 13:55:01 +0100
+
+morse-simulator (0.6~alpha-1~exp1) experimental; urgency=low
+
+  * New upstream release (Fix problem with blender 2.65)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 10 Sep 2012 16:48:34 +0200
+
 morse-simulator (0.5.2-1) unstable; urgency=low
 
   * Initial release (Closes: #670577)

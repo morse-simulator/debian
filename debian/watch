@@ -1,3 +1,2 @@
 version=3
-opts=filenamemangle=s/.+\/tarball\/(.+)$/morse-simulator_$1.orig.tar.gz/ \
-https://github.com/laas/morse/tags .*/tarball/(\d[\d\.]+)
+ftp://ftp.openrobots.org/pub/openrobots/morse/ morse-(.*).tar.bz2
