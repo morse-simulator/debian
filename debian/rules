@@ -10,4 +10,9 @@
 override_dh_auto_configure:
 	dh_auto_configure -- -DBUILD_DOC_SUPPORT=ON
 
+override_dh_install:
+	dh_install
+	rm -fr $$(find $(CURDIR) -name '__pycache__')
+
+override_dh_auto_test:
 

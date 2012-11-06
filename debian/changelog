@@ -2,6 +2,8 @@ morse-simulator (0.6-1~exp1) experimental; urgency=low
 
   * New upstream release
   * Update of the watch file
+  * Tests disabled
+  * Remove __pycache__ directories
 
  -- Sylvestre Ledru <sylvestre@debian.org>  Sun, 04 Nov 2012 13:55:01 +0100
 
