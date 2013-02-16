@@ -1,3 +1,9 @@
+morse-simulator (1.0-beta1-1~exp1) experimental; urgency=low
+
+  * New testing upstream release
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sat, 16 Feb 2013 10:38:22 +0100
+
 morse-simulator (0.6-1~exp1) experimental; urgency=low
 
   * New upstream release
