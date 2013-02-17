@@ -14,7 +14,7 @@ Vcs-Browser: http://svn.debian.org/viewsvn/debian-science/packages/morse/trunk/
 Package: morse-simulator
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, blender (>= 2.59),
- ${python:Depends}, morse-simulator-data
+ ${python:Depends}, python3.2, morse-simulator-data
 Recommends: morse-simulator-doc
 Conflicts: morse
 Description: Multi-OpenRobot Simulation Engine
