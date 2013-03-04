@@ -1,3 +1,13 @@
+morse-simulator (1.0.0-1~exp2) experimental; urgency=low
+
+   [ Dmitrijs Ledkov ]
+   * Build against python3-dev instead of python3.2-dev.
+   * Call dh_python3.
+   * Use python3:Depends, instead of python:Depends.
+   * Use pkg-config to find python includes.
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 04 Mar 2013 18:02:01 +0100
+
 morse-simulator (1.0.0-1~exp1) experimental; urgency=low
 
   * New upstream release
