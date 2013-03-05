@@ -1,3 +1,9 @@
+morse-simulator (1.0.0-1~exp3) experimental; urgency=low
+
+  * Fix a bad dependency (python:depends instead of python3:depends).
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 05 Mar 2013 08:57:07 +0100
+
 morse-simulator (1.0.0-1~exp2) experimental; urgency=low
 
    [ Dmitrijs Ledkov ]

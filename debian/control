@@ -95,7 +95,7 @@ Description: Multi-OpenRobot Simulation Engine - Documentation
 Package: python3-morse-simulator
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
- ${python:Depends}, morse-simulator-data
+ ${python3:Depends}, morse-simulator-data
 Conflicts: morse
 Description: Multi-OpenRobot Simulation Engine
  List of morse features:
