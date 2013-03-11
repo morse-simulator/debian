@@ -1,3 +1,9 @@
+morse-simulator (1.0.0-1~exp4) experimental; urgency=low
+
+  * Enable the build of the documentation. See upstream bug #302
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 11 Mar 2013 10:46:58 +0100
+
 morse-simulator (1.0.0-1~exp3) experimental; urgency=low
 
   * Fix a bad dependency (python:depends instead of python3:depends).
