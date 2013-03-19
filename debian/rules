@@ -8,7 +8,7 @@
 	dh $@ --with python3
 
 override_dh_auto_configure:
-	dh_auto_configure -- -DBUILD_DOC_SUPPORT=ON
+	dh_auto_configure -- -DBUILD_DOC_SUPPORT=ON -DPYTHON_EXECUTABLE=/usr/bin/python3.3
 
 override_dh_install:
 	dh_install

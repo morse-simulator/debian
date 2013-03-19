@@ -1,120 +1,18 @@
-Description: use pkg-config to find python3 includes
-Author: Dmitrijs Ledkovs <dmitrij.ledkov@ubuntu.com>
-Forwarded: no
-Last-Update: 2012-10-25
-
-Index: b/CMakeLists.txt
-===================================================================
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -17,17 +17,17 @@
+diff --git a/config/FindPythonLibs.cmake b/config/FindPythonLibs.cmake
+index 1bbf3ce..51e8451 100644
+--- a/config/FindPythonLibs.cmake
++++ b/config/FindPythonLibs.cmake
+@@ -186,10 +186,11 @@ FOREACH(_CURRENT_VERSION ${_Python_VERSIONS})
+     STRING(REGEX REPLACE "^#define[ \t]+PY_VERSION[ \t]+\"([^\"]+)\".*" "\\1"
+                          _PYTHONLIBS_VERSION_STRING "${python_version_str}")
+     UNSET(python_version_str)
++
++	# erase minor version
++	STRING(SUBSTRING ${_PYTHONLIBS_VERSION_STRING} 0 3 PYTHONLIBS_VERSION_STRING)
+   ENDIF(PYTHON_INCLUDE_DIR AND EXISTS "${PYTHON_INCLUDE_DIR}/patchlevel.h")
  
- list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/config/)
- find_package(PkgConfig REQUIRED)
-+set(PythonInterp_FIND_VERSION 3.0)
-+find_package(PythonInterp REQUIRED)
+-  # erase minor version
+-  STRING(SUBSTRING ${_PYTHONLIBS_VERSION_STRING} 0 3 PYTHONLIBS_VERSION_STRING)
  
--find_package(Python32Interp REQUIRED)
--
--if (NOT PYTHON3INTERP_FOUND)
-+if (NOT PYTHONINTERP_FOUND)
- 	MESSAGE(FATAL_ERROR "Can't find python 3.2 on your system")
--endif(NOT PYTHON3INTERP_FOUND)
-+endif(NOT PYTHONINTERP_FOUND)
- 
--find_package(Python32Libs REQUIRED)
-+pkg_check_modules(PYTHON3 python3)
- 
- EXECUTE_PROCESS(COMMAND
--					${PYTHON3_EXECUTABLE} -c "import distutils.sysconfig, sys; sys.stdout.write(distutils.sysconfig.get_python_lib(1,0,\"\"))"
-+					${PYTHON_EXECUTABLE} -c "import distutils.sysconfig, sys; sys.stdout.write(distutils.sysconfig.get_python_lib(1,0,\"\"))"
- 					OUTPUT_VARIABLE PYTHON_INSTALL
- 					ERROR_VARIABLE PYTHON_STDERR
- 					RESULT_VARIABLE PYTHON_ERR
-@@ -50,11 +50,11 @@
- 
- if (BUILD_YARP2_SUPPORT)
- 	EXECUTE_PROCESS(COMMAND 
--					${PYTHON3_EXECUTABLE} -c "import yarp;"
-+					${PYTHON_EXECUTABLE} -c "import yarp;"
- 					RESULT_VARIABLE YARP_PY_ERR
- 				   )
- 	if (YARP_PY_ERR)
--		MESSAGE(FATAL_ERROR "BUILD_YARP_SUPPORT is required, but '${PYTHON3_EXECUTABLE}' can't find yarp python binding")
-+		MESSAGE(FATAL_ERROR "BUILD_YARP_SUPPORT is required, but '${PYTHON_EXECUTABLE}' can't find yarp python binding")
- 	endif (YARP_PY_ERR)
- endif(BUILD_YARP2_SUPPORT)
- 
-@@ -62,12 +62,12 @@
- # check to make sure pymoos is installed
- if (BUILD_MOOS_SUPPORT)
- 	EXECUTE_PROCESS(COMMAND 
--					${PYTHON3_EXECUTABLE} -c "import pymoos.MOOSCommClient;"
-+					${PYTHON_EXECUTABLE} -c "import pymoos.MOOSCommClient;"
- 					RESULT_VARIABLE MOOS_PY_ERR
- 				   )
- 	if (MOOS_PY_ERR)
- 		#message(${MOOS_PY_ERR})
--		#MESSAGE(FATAL_ERROR "BUILD_MOOS_SUPPORT is required, but '${PYTHON3_EXECUTABLE}' can't find MOOS python binding")
-+		#MESSAGE(FATAL_ERROR "BUILD_MOOS_SUPPORT is required, but '${PYTHON_EXECUTABLE}' can't find MOOS python binding")
- 	endif (MOOS_PY_ERR)
- endif(BUILD_MOOS_SUPPORT)
- 
-@@ -79,11 +79,11 @@
- 
- if (BUILD_HLA_SUPPORT)
- 	EXECUTE_PROCESS(COMMAND 
--					${PYTHON3_EXECUTABLE} -c "import hla;"
-+					${PYTHON_EXECUTABLE} -c "import hla;"
- 					RESULT_VARIABLE HLA_PY_ERR
- 				   )
- 	if (HLA_PY_ERR)
--		MESSAGE(FATAL_ERROR "BUILD_HLA_SUPPORT is required, but '${PYTHON3_EXECUTABLE}' can't find 'hla' python binding")
-+		MESSAGE(FATAL_ERROR "BUILD_HLA_SUPPORT is required, but '${PYTHON_EXECUTABLE}' can't find 'hla' python binding")
- 	endif (HLA_PY_ERR)
- endif(BUILD_HLA_SUPPORT)
- 
-@@ -137,7 +137,7 @@
- 
- ###### Testing ######
- EXECUTE_PROCESS(COMMAND
--				${PYTHON3_EXECUTABLE} -c "import pymorse"
-+				${PYTHON_EXECUTABLE} -c "import pymorse"
- 								RESULT_VARIABLE PYTHON_ERR
- 								OUTPUT_QUIET
- 								ERROR_QUIET
-Index: b/src/morse/middleware/pocolibs/CMakeLists.txt
-===================================================================
---- a/src/morse/middleware/pocolibs/CMakeLists.txt
-+++ b/src/morse/middleware/pocolibs/CMakeLists.txt
-@@ -6,7 +6,7 @@
- ## It generates _ors_<module_name>_poster.so, ors_<module_name>_poster.py, and
- ## we wait for <module_name>.py in the (sensor|actuator) directory)
- 
--include_directories(${PYTHON3_INCLUDE_DIR})
-+include_directories(${PYTHON3_INCLUDE_DIRS})
- include_directories(${POCOLIBS_INCLUDE_DIRS})
- set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99")
- 
-Index: b/src/morse/modifiers/CMakeLists.txt
-===================================================================
---- a/src/morse/modifiers/CMakeLists.txt
-+++ b/src/morse/modifiers/CMakeLists.txt
-@@ -1,5 +1,5 @@
- # build and install C modifiers
--INCLUDE_DIRECTORIES(${PYTHON3_INCLUDE_DIR})
-+INCLUDE_DIRECTORIES(${PYTHON3_INCLUDE_DIRS})
- 
- ADD_LIBRARY (gaussian SHARED gaussian.c)
- SET_TARGET_PROPERTIES (gaussian PROPERTIES PREFIX "")
-Index: b/src/morse/sensors/CMakeLists.txt
-===================================================================
---- a/src/morse/sensors/CMakeLists.txt
-+++ b/src/morse/sensors/CMakeLists.txt
-@@ -1,5 +1,5 @@
- # build and install C sensors
--INCLUDE_DIRECTORIES(${PYTHON3_INCLUDE_DIR})
-+INCLUDE_DIRECTORIES(${PYTHON3_INCLUDE_DIRS})
- 
- #ADD_LIBRARY (sickc SHARED sickcmodule.c)
- #SET_TARGET_PROPERTIES (sickc PROPERTIES PREFIX "")
+   IF (NOT ("${PYTHON_INCLUDE_DIR}" STREQUAL "${PYTHON_INCLUDE_DIR2}"))
+ 	  set(PYTHON_INCLUDE_DIR_TMP ${PYTHON_INCLUDE_DIR})

@@ -1,3 +1,10 @@
+morse-simulator (1.0.0-1~exp5) experimental; urgency=low
+
+  * Fix the build under Ubuntu by forcing usage of Python 3.3
+    See LP: #1146637
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 19 Mar 2013 13:21:04 +0100
+
 morse-simulator (1.0.0-1~exp4) experimental; urgency=low
 
   * Enable the build of the documentation. See upstream bug #302
