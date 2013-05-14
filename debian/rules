@@ -13,5 +13,6 @@ override_dh_auto_configure:
 override_dh_install:
 	dh_install
 	rm -fr $$(find $(CURDIR) -name '__pycache__')
+	cd $(CURDIR)/debian/morse-simulator-doc/usr/share/doc/morse/html/_static/ && rm -f jquery.js underscore.js && ln -s /usr/share/javascript/jquery/jquery.js && ln -s /usr/share/javascript/jquery/underscore.js
 
 override_dh_auto_test:

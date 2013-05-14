@@ -1,8 +1,16 @@
+morse-simulator (1.0.1-1) unstable; urgency=low
+
+  * Upload to unstable
+  * Standards-Version updated to 3.9.4
+  * Remove embedded-javascript-library (jquery & underscore)
+  * Dependency on morse-simulator-data from python3-morse-simulator removed
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 06 May 2013 10:05:21 +0200
+
 morse-simulator (1.0.1-1~exp1) experimental; urgency=low
 
   * New upstream release
-  * Patches applied upstream:
-    -
+  * Remove patches applied upstream
 
  -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 02 Apr 2013 16:31:04 +0200
 
