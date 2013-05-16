@@ -1,3 +1,10 @@
+morse-simulator (1.0.1-2) unstable; urgency=low
+
+  * Only delete the Javascript when the doc package is built
+    (Closes: #708285)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Thu, 16 May 2013 10:55:59 +0200
+
 morse-simulator (1.0.1-1) unstable; urgency=low
 
   * Upload to unstable
