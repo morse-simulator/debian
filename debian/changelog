@@ -1,3 +1,16 @@
+morse-simulator (1.0.1-2.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Fix python3 related dependency issues (Closes: #712014):
+    - Fix configure to use /usr/bin/python3 instead of python3.3 explicitly
+      and override upstream definition of CPACK_DEBIAN_PACKAGE_DEPENDS so that
+      packages end up with correct depends
+    - Add X-Python3-Version: >= 3.2 to debian control to set the minimum
+      supported python3 version
+    - Add python3-morse-simulator to morse-simulator depends
+
+ -- Scott Kitterman <scott@kitterman.com>  Wed, 19 Jun 2013 16:14:43 -0400
+
 morse-simulator (1.0.1-2) unstable; urgency=low
 
   * Only delete the Javascript when the doc package is built

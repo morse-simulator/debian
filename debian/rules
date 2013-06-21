@@ -8,7 +8,8 @@
 	dh $@ --with python3
 
 override_dh_auto_configure:
-	dh_auto_configure -- -DBUILD_DOC_SUPPORT=ON -DPYTHON_EXECUTABLE=/usr/bin/python3.3
+	dh_auto_configure -- -DBUILD_DOC_SUPPORT=ON -DPYTHON_EXECUTABLE=/usr/bin/python3 \
+		 -DCPACK_DEBIAN_PACKAGE_DEPENDS=python3-all-dev
 
 override_dh_install:
 	dh_install
