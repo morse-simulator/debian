@@ -99,6 +99,8 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
  ${python3:Depends}
 Conflicts: morse
+Replaces: morse-simulator (<< 1.0.1-2)
+Breaks: morse-simulator (<< 1.0.1-2)
 Description: Multi-OpenRobot Simulation Engine
  List of morse features:
   * Versatile simulator for generic mobile robots simulation

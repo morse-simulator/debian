@@ -1,8 +1,10 @@
-morse-simulator (1.0.1-3) UNRELEASED; urgency=low
+morse-simulator (1.0.1-3) unstable; urgency=low
 
   * ACK NMU. Thanks Scott.
+  * Provides the correct breaks / replaces (Closes: #714603)
+  * Ignore python-script-but-no-python-dep on morse-simulator-doc
 
- --
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 13 Aug 2013 13:59:37 +0200
 
 morse-simulator (1.0.1-2.1) unstable; urgency=low
 
