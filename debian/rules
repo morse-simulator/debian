@@ -9,7 +9,7 @@
 
 override_dh_auto_configure:
 	dh_auto_configure -- -DBUILD_DOC_SUPPORT=ON -DPYTHON_EXECUTABLE=/usr/bin/python3 \
-		 -DCPACK_DEBIAN_PACKAGE_DEPENDS=python3-all-dev
+		 -DCPACK_DEBIAN_PACKAGE_DEPENDS=python3-all-dev -DPYMORSE_SUPPORT=ON
 
 override_dh_install:
 	dh_install
