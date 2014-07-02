@@ -1,3 +1,11 @@
+morse-simulator (1.2-2.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Drop unneeded build-dep on python3.3-dev to support python3.3 removal
+    (Closes: #751650)
+
+ -- Scott Kitterman <scott@kitterman.com>  Thu, 19 Jun 2014 22:09:44 -0400
+
 morse-simulator (1.2-2) unstable; urgency=medium
 
   * Add python-concurrent.futures to the build dep to make the build
