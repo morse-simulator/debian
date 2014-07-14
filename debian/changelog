@@ -1,3 +1,9 @@
+morse-simulator (1.2.1-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 14 Jul 2014 15:08:47 +0200
+
 morse-simulator (1.2-3) unstable; urgency=medium
 
   * ACK NMU. Thanks Scott
