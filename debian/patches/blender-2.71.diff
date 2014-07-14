@@ -1,0 +1,13 @@
+Index: morse-simulator-1.2/bin/morse.in
+===================================================================
+--- morse-simulator-1.2.orig/bin/morse.in	2014-01-31 15:54:17.000000000 +0100
++++ morse-simulator-1.2/bin/morse.in	2014-07-02 09:58:12.673946478 +0200
+@@ -44,7 +44,7 @@
+ #Blender version must be egal or bigger than...
+ MIN_BLENDER_VERSION = "2.62"
+ #Blender version must be smaller than...
+-STRICT_MAX_BLENDER_VERSION = "2.70"
++STRICT_MAX_BLENDER_VERSION = "2.71"
+ 
+ #Unix-style path to the MORSE default scene and templates, within the prefix
+ DEFAULT_SCENE_PATH = "share/morse/data/morse_default.blend"
