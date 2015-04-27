@@ -1,3 +1,10 @@
+morse-simulator (1.2.2-1~exp1) experimental; urgency=medium
+
+  * New upstream release
+  * Standards-Version updated to 3.9.6
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 30 Dec 2014 13:31:42 +0100
+
 morse-simulator (1.2.1-2) unstable; urgency=medium
 
   [ Tobias Hansen ]

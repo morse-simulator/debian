@@ -5,7 +5,7 @@ Maintainer: Debian Science Team <debian-science-maintainers@lists.alioth.debian.
 Uploaders: Sylvestre Ledru <sylvestre@debian.org>, Séverin Lemaignan <severin@guakamole.org>
 Build-Depends: debhelper (>= 8.0.0), cmake, python3-dev,
  python3-sphinx, pkg-config, python-concurrent.futures
-Standards-Version: 3.9.5
+Standards-Version: 3.9.6
 Homepage: http://morse.openrobots.org/
 X-Python3-Version: >= 3.2
 Vcs-Svn: svn://svn.debian.org/svn/debian-science/packages/morse/trunk/
