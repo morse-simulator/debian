@@ -8,8 +8,8 @@ Build-Depends: debhelper (>= 8.0.0), cmake, python3-dev,
 Standards-Version: 3.9.6
 Homepage: http://morse.openrobots.org/
 X-Python3-Version: >= 3.2
-Vcs-Svn: svn://svn.debian.org/svn/debian-science/packages/morse/trunk/
-Vcs-Browser: http://svn.debian.org/viewsvn/debian-science/packages/morse/trunk/
+Vcs-Git: https://github.com/morse-simulator/debian.git
+Vcs-Browser: https://github.com/morse-simulator/debian
 
 
 Package: morse-simulator
