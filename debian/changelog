@@ -1,3 +1,9 @@
+morse-simulator (1.3-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 17 Aug 2015 18:57:49 +0200
+
 morse-simulator (1.2.2-1.1) unstable; urgency=medium
 
   * Non-maintainer upload, with maintainer's permission.
