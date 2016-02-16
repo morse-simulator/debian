@@ -6,7 +6,7 @@ Uploaders: Sylvestre Ledru <sylvestre@debian.org>, Séverin Lemaignan <severin@g
 Build-Depends: debhelper (>= 8.0.0), cmake, python3-dev,
  python3-sphinx (>= 1.3), pkg-config, python-concurrent.futures
 Standards-Version: 3.9.6
-Homepage: http://morse.openrobots.org/
+Homepage: http://morse-simulator.github.io/
 X-Python3-Version: >= 3.2
 Vcs-Git: https://github.com/morse-simulator/debian.git
 Vcs-Browser: https://github.com/morse-simulator/debian
