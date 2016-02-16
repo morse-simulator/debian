@@ -12,7 +12,7 @@ override_dh_auto_configure:
 		 -DCPACK_DEBIAN_PACKAGE_DEPENDS=python3-all-dev -DPYMORSE_SUPPORT=ON
 
 override_dh_install:
-	dh_install
+	dh_install --fail-missing
 	rm -fr $$(find $(CURDIR) -name '__pycache__')
 	if test -d $(CURDIR)/debian/morse-simulator-doc/usr/share/doc/morse/html/_static/; then \
 		cd $(CURDIR)/debian/morse-simulator-doc/usr/share/doc/morse/html/_static/ && \

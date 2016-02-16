@@ -1,2 +1,3 @@
-debian/tmp/usr/share/morse/addons
-debian/tmp/usr/share/morse/data
+usr/share/morse/addons
+usr/share/morse/data
+usr/share/federations/morse.fed
