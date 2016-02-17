@@ -7,16 +7,16 @@ Build-Depends: debhelper (>= 8.0.0), cmake, python3-dev,
  python3-sphinx (>= 1.3), pkg-config, python-concurrent.futures
 Standards-Version: 3.9.6
 Homepage: http://morse-simulator.github.io/
-X-Python3-Version: >= 3.2
+X-Python3-Version: >= 3.3
 Vcs-Git: https://github.com/morse-simulator/debian.git
 Vcs-Browser: https://github.com/morse-simulator/debian
 
 
 Package: morse-simulator
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, blender (>= 2.63a-3),
+Depends: ${shlibs:Depends}, ${misc:Depends}, blender (>= 2.65),
  ${python3:Depends}, python3-morse-simulator (= ${binary:Version}),
- morse-simulator-data, numpy
+ morse-simulator-data, python3-numpy
 Recommends: morse-simulator-doc
 Conflicts: morse
 Description: Multi-OpenRobot Simulation Engine
