@@ -1,3 +1,10 @@
+morse-simulator (1.4-3) unstable; urgency=medium
+
+  * Relax the need for Sphinx 1.3 as the original issue (#792711) has been
+    fixed upstream
+
+ -- Séverin Lemaignan <severin@guakamole.org>  Fri, 19 Feb 2016 14:28:25 +0000
+
 morse-simulator (1.4-2) unstable; urgency=medium
 
   * Fix a bad dependency (numpy)

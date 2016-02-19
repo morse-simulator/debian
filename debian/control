@@ -4,7 +4,7 @@ Priority: extra
 Maintainer: Debian Science Team <debian-science-maintainers@lists.alioth.debian.org>
 Uploaders: Sylvestre Ledru <sylvestre@debian.org>, Séverin Lemaignan <severin@guakamole.org>
 Build-Depends: debhelper (>= 8.0.0), cmake, python3-dev,
- python3-sphinx (>= 1.3), pkg-config, python-concurrent.futures
+ python3-sphinx, pkg-config, python-concurrent.futures
 Standards-Version: 3.9.6
 Homepage: http://morse-simulator.github.io/
 X-Python3-Version: >= 3.3
